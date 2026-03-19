@@ -9,3 +9,24 @@ id,title,artist,genre,mood,energy,tempo_bpm,valence,danceability,acousticness
 8,Night Drive Loop,Neon Echo,synthwave,moody,0.75,110,0.49,0.73,0.22
 9,Focus Flow,LoRoom,lofi,focused,0.40,80,0.59,0.60,0.78
 10,Rooftop Lights,Indigo Parade,indie pop,happy,0.76,124,0.81,0.82,0.35
+
+11,City Lights,Ava Gray,Pop,Happy,0.78,118,82,2010s,upbeat;optimistic;dance
+12,Neon Skyline,The Vectors,Synthwave,Chill,0.52,90,60,2010s,nostalgic;night;retro
+13,Midnight Run,Stone Harbor,Rock,Intense,0.88,150,70,2000s,aggressive;anthemic;guitar
+14,Soft Rain,LoLeaf,Lo-fi,Calm,0.32,72,55,2020s,study;relaxed;warm
+15,Golden Hour,June Park,Indie,Happy,0.63,104,67,2020s,sunny;acoustic;feelgood
+16,Static Bloom,GlassFields,Alternative,Sad,0.58,110,48,2010s,melancholic;vocal;atmospheric
+17,Gym Hero,Pulse Kings,EDM,Energetic,0.95,128,90,2020s,workout;festival;euphoric
+18,Moon Drift,Orbit Lane,Ambient,Calm,0.20,60,35,2000s,soothing;space;slow
+19,Low Tide,Coastal Drive,Reggae,Chill,0.55,75,50,2010s,beach;laidback;summer
+20,Desert Road,Dust & Echoes,Country,Reflective,0.45,92,46,2000s,storytelling;nostalgic;twang
+21,Crimson Rush,Fireline,Metal,Intense,0.93,160,52,2000s,aggressive;dark;power
+22,Skybound,Kai Lin,Pop,Happy,0.70,122,78,2020s,anthem;radio;bright
+23,Vibe Sketch,Beat Canvas,Hip-Hop,Chill,0.61,86,65,2010s,lofi;groove;smooth
+24,Blue Monday,Helena Rue,Blues,Sad,0.40,68,42,1990s,slow;melancholy;guitar
+25,Rose Quartz,Maribel,Latin,Happy,0.72,100,66,2010s,party;dance;romance
+26,Northern Lights,Aria & Co.,Classical,Calm,0.18,52,30,1990s,orchestral;cinematic;gentle
+27,Overdrive,Jetstream,Rock,Energetic,0.85,145,73,2010s,anthem;drive;riff
+28,Night Market,Lotus Club,House,Happy,0.83,124,75,2020s,club;uplifting;groove
+29,Paper Lanterns,Silk & Ink,Indie,Sad,0.47,95,58,2010s,acoustic;intimate;nostalgic
+30,Saffron Sky,Ravi Rao,World,Calm,0.36,88,40,2000s,meditative;acoustic;warm

@@ -17,6 +17,27 @@ Replace this paragraph with your own summary of what your version does.
 
 ## How The System Works
 
+# ---- BEGIN ----
+<!-- [§Phase 1 – Steps 1–4] -->
+
+Real platforms blend **collaborative filtering (CF)**—“people like you liked X”—with **content‑based filtering (CBF)**—“this song’s attributes match your taste.” Our simulation focuses on CBF for transparency: we compare a user’s **taste profile** (genre, mood, energy, tempo) against each song’s attributes, compute a **score per song**, then **rank** all songs to pick the top‑K. We also record **reasons** (e.g., “genre match”) so results are explainable.
+
+**Objects/Features**
+- **Song:** title, artist, genre, mood, energy (0–1), tempo_bpm (+ optional: popularity, release_decade, mood_tags)
+
+- **UserProfile:** favorite_genre, favorite_mood, target_energy, target_tempo_bpm, desired_mood_tags (optional)
+
+**Scoring (initial idea)**
+- +2.0 for exact **genre** match
+- +1.0 for exact **mood** match
+- **Energy similarity**: higher when close to target (1 − |song.energy − target|)
+- **Tempo similarity**: higher when close to target BPM
+
+**Ranking**
+- Compute score for every song (**scoring rule**) then sort descending (**ranking rule**) to get top‑K.
+
+# ---- END ----
+
 Explain your design in plain language.
 
 Some prompts to answer:
