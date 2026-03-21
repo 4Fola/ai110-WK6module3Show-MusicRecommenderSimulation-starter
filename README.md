@@ -36,6 +36,28 @@ Real platforms blend **collaborative filtering (CF)**—“people like you liked
 **Ranking**
 - Compute score for every song (**scoring rule**) then sort descending (**ranking rule**) to get top‑K.
 
+### Algorithm Recipe  <!-- [§Phase 2 – Steps 3–5] -->
+
+1) Start score at 0.  
+2) If genre matches user’s favorite_genre, +2.0.  
+3) If mood matches favorite_mood, +1.0.  
+4) Add **energy similarity** = 1 − |energy − target_energy|, weighted 1.5.  
+5) Add **tempo similarity** = 1 − min(|tempo−target|/200, 1), weighted 0.6.  
+6) (Optional) Add **mood tag overlap** (cap at 3 tags), weighted 0.6.  
+7) (Optional) Add **popularity boost** = popularity/100, weighted 0.5.
+
+Will support multiple **modes** (Genre‑First, Mood‑First, Energy‑Focused, Balanced) via weight presets and add a **diversity penalty** in ranking to avoid many items from the same artist/genre at the very top.
+
+### Mermaid data-flow {Optional}
+
+flowchart LR
+  A[User Prefs] --> B[Score Song]
+  C[Songs CSV] --> B
+  B --> D[Scores + Reasons]
+  D --> E[Sort / Rank]
+  E --> F[Top-K Recommendations]
+
+
 # ---- END ----
 
 Explain your design in plain language.

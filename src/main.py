@@ -32,22 +32,20 @@ def print_block(title: str):
     print(title)
     print("=" * 72)
 
+
 def main():
     songs = load_songs()
-    print_block(f"Loaded songs: {len(songs)}  [Doc §Phase 3 – Step 1]")
+    for name, prefs in PROFILES.items():
+        print(f"\n=== {name} | mode=balanced | top=10 ===")
+        for r in recommend_songs(prefs, songs, k=10, mode="balanced", diversity=True):
+            print(f"- {r['title']} – {r['artist']} | {r['score']:.3f}")
+            print(f"  reasons: {'; '.join(r['reasons'])}")
 
-    modes = ["balanced", "genre_first", "mood_first", "energy_focused"]
-    k = 10  # As requested
+    # Experiment toggles [Doc §Phase 4 – Step 3]
+    print("\n=== Experiment: Energy weight up, Genre weight down (use energy_focused mode) ===")
+    for r in recommend_songs(PROFILES["High-Energy Pop"], songs, k=10, mode="energy_focused", diversity=True):
+        print(f"- {r['title']} – {r['artist']} | {r['score']:.3f}")
 
-    for profile_name, prefs in USER_PROFILES.items():
-        for mode in modes:
-            print_block(f"{profile_name}  |  mode={mode}  |  top={k}")
-            results = recommend_songs(prefs, songs, k=k, mode=mode, diversity=True)
-            for idx, r in enumerate(results, 1):
-                short_reasons = "; ".join(r["reasons"])
-                print(f"{idx:>2}. {r['title']} – {r['artist']}  |  score={r['score']:.3f}")
-                print(f"    reasons: {short_reasons}")
-            print()
 
 if __name__ == "__main__":
     main()

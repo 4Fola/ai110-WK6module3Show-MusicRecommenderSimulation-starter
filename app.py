@@ -13,7 +13,7 @@ app = FastAPI(title="VibeCraft 1.0")  # Name chosen
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
-SONGS = load_songs()  # load once for demo
+SONGS = load_songs("data/songs.csv")  # load once for demo
 
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request):

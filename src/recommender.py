@@ -3,7 +3,7 @@ from __future__ import annotations
 import csv
 from typing import Dict, List, Tuple, Optional
 
-# [Doc §Phase 3 – Step 1] CSV loader that casts numerics and parses mood_tags. 
+# [§Phase 3 – Step 1] CSV loader that casts numerics and parses mood_tags. 
 def load_songs(csv_path: str = "data/songs.csv") -> List[Dict]:
     songs: List[Dict] = []
     with open(csv_path, newline="", encoding="utf-8") as f:
@@ -36,7 +36,8 @@ def load_songs(csv_path: str = "data/songs.csv") -> List[Dict]:
             songs.append(row)
     return songs
 
-# [Doc §Phase 3 – Step 2] Scoring rules with reasons. Modes tweak weights.
+# [§Phase 3 – Step 2] Scoring rules with reasons. Modes tweak weights.
+def score_song(
     user_prefs: Dict,
     song: Dict,
     mode: str = "balanced",
@@ -108,7 +109,7 @@ def load_songs(csv_path: str = "data/songs.csv") -> List[Dict]:
 
     return score, reasons
 
-# [Doc §Phase 3 – Step 3] Ranking with optional diversity penalty (artist/genre). 
+# [§Phase 3 – Step 3] Ranking with optional diversity penalty (artist/genre). 
 def recommend_songs(
     user_prefs: Dict,
     songs: List[Dict],
@@ -184,6 +185,42 @@ def recommend_songs(
         remaining.pop(best_idx)
 
     return taken
+
+
+def load_songs(csv_path: str = "data/songs.csv") -> List[Dict]:
+    songs = []
+    with open(csv_path, newline="", encoding="utf-8") as f:
+        for row in csv.DictReader(f):
+            row["energy"] = float(row.get("energy") or 0.0)
+            row["tempo_bpm"] = float(row.get("tempo_bpm") or 0.0)
+            songs.append(row)
+    return songs  # [§Phase 3 – Step 1]
+
+def score_song(user_prefs: Dict, song: Dict) -> Tuple[float, List[str]]:
+    score = 0.0
+    reasons = []
+    if song.get("genre","").lower() == user_prefs.get("favorite_genre","").lower():
+        score += 2.0; reasons.append("genre match (+2.0)")  # [§Phase 3 – Step 2]
+    if song.get("mood","").lower() == user_prefs.get("favorite_mood","").lower():
+        score += 1.0; reasons.append("mood match (+1.0)")
+    if "target_energy" in user_prefs:
+        sim = 1.0 - min(abs(song["energy"] - float(user_prefs["target_energy"])), 1.0)
+        inc = 1.5 * sim; score += inc; reasons.append(f"energy similarity {sim:.2f} (+{inc:.2f})")
+    if user_prefs.get("target_tempo_bpm") is not None:
+        gap = abs(float(song["tempo_bpm"]) - float(user_prefs["target_tempo_bpm"]))
+        sim = 1.0 - min(gap/200.0, 1.0)
+        inc = 0.6 * sim; score += inc; reasons.append(f"tempo similarity {sim:.2f} (+{inc:.2f})")
+    return score, reasons
+
+def recommend_songs(user_prefs: Dict, songs: List[Dict], k: int = 10) -> List[Dict]:
+    scored = []
+    for s in songs:
+        sc, rs = score_song(user_prefs, s)
+        scored.append({"title": s.get("title"), "artist": s.get("artist"), "score": round(sc,4), "reasons": rs})
+    return sorted(scored, key=lambda x: x["score"], reverse=True)[:k]  # [§Phase 3 – Step 3]
+
+
+
 
 
 
