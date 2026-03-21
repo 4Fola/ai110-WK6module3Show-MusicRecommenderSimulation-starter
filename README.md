@@ -17,7 +17,7 @@ Replace this paragraph with your own summary of what your version does.
 
 ## How The System Works
 
-# ---------------------------- BEGIN ----------------------------
+# ------------------------ BEGIN ------------------------
 # <!-- [§Phase 1 – Steps 1–4] -->
 
 Real platforms blend **collaborative filtering (CF)**—“people like you liked X”—with **content‑based filtering (CBF)**—“this song’s attributes match your taste.” Our simulation focuses on CBF for transparency: we compare a user’s **taste profile** (genre, mood, energy, tempo) against each song’s attributes, compute a **score per song**, then **rank** all songs to pick the top‑K. We also record **reasons** (e.g., “genre match”) so results are explainable.
@@ -58,7 +58,7 @@ flowchart LR
 -  E --> F[Top-K Recommendations]
 
 
-# -------------------------------- END ----------------------------
+# ------------------------ END --------------------
 
 Explain your design in plain language.
 
