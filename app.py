@@ -1,28 +1,38 @@
 # app.py
-# FastAPI micro-UI for the recommender (local only).
-# [Doc §Optional – Challenge 4] Simple formatted table with reasons. 
-# [2] 
-
+# [Doc §Optional – Challenge 4] Local-only FastAPI UI with sane defaults.
 from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from src.recommender import load_songs, recommend_songs
 
-app = FastAPI(title="VibeCraft 1.0")  # Name chosen
+app = FastAPI(title="VibeCraft 1.0")  # naming
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
-SONGS = load_songs("data/songs.csv")  # load once for demo
+SONGS = load_songs()  # load once
 
+# Will supply defaults on index so template never sees missing vars (prevents blank/undefined).
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request):
+    default_prefs = {
+        "favorite_genre": "",
+        "favorite_mood": "",
+        "target_energy": 0.70,
+        "target_tempo_bpm": 120,
+        "desired_mood_tags": [],
+    }
     return templates.TemplateResponse(
         "index.html",
         {
             "request": request,
             "genres": sorted({s.get("genre") for s in SONGS if s.get("genre")}),
             "moods": sorted({s.get("mood") for s in SONGS if s.get("mood")}),
+            "results": [],
+            "prefs": default_prefs,
+            "mode": "balanced",
+            "top_k": 10,              # [Preferences]
+            "diversity": True,
         },
     )
 
@@ -38,7 +48,7 @@ async def recommend(
     top_k: int = 10,
     diversity: bool = True,
 ):
-    # Input hygiene (local-only, but keeping it clean)
+    # Input clamping (local only but keeping it clean)
     try:
         target_energy = max(0.0, min(1.0, float(target_energy)))
     except Exception:
@@ -51,8 +61,8 @@ async def recommend(
         top_k = max(1, min(20, int(top_k)))
     except Exception:
         top_k = 10
-    desired_tags = [t.strip() for t in desired_mood_tags.split(",") if t.strip()]
 
+    desired_tags = [t.strip() for t in desired_mood_tags.split(",") if t.strip()]
     prefs = {
         "favorite_genre": favorite_genre.strip(),
         "favorite_mood": favorite_mood.strip(),
