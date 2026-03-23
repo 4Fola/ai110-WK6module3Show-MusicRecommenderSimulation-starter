@@ -18,6 +18,9 @@ Replace this paragraph with your own summary of what your version does.
 ## How The System Works
 
 # ------------ BEGIN ------------
+
+<img src="MusicRecommenderSimulation-Demo.gif" alt="MusicRecommenderSimulation-Demo">
+
 # §Phase 1 – Steps 1–4
 # <!-- [§Phase 1 – Steps 1–4] -->
 
