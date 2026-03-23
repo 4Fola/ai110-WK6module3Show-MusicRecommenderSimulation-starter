@@ -18,6 +18,7 @@ Replace this paragraph with your own summary of what your version does.
 ## How The System Works
 
 # ------------ BEGIN ------------
+# §Phase 1 – Steps 1–4
 # <!-- [§Phase 1 – Steps 1–4] -->
 
 Real platforms blend **collaborative filtering (CF)**—“people like you liked X”—with **content‑based filtering (CBF)**—“this song’s attributes match your taste.” Our simulation focuses on CBF for transparency: we compare a user’s **taste profile** (genre, mood, energy, tempo) against each song’s attributes, compute a **score per song**, then **rank** all songs to pick the top‑K. We also record **reasons** (e.g., “genre match”) so results are explainable.
@@ -37,6 +38,7 @@ Real platforms blend **collaborative filtering (CF)**—“people like you liked
 - Compute score for every song (**scoring rule**) then sort descending (**ranking rule**) to get top‑K.
 
 ### Algorithm Recipe  <!-- [§Phase 2 – Steps 3–5] -->
+# §Phase 2 – Steps 3–5
 
 1) Start score at 0.  
 2) If genre matches user’s favorite_genre, +2.0.  
@@ -57,7 +59,14 @@ flowchart LR
 -  D --> E[Sort / Rank]
 -  E --> F[Top-K Recommendations]
 
+## Run to viw WebUI uvicorn app:app --reload --host 127.0.0.1 --port 8000
 
+## Diversity penalty: When diversity=True, we pick songs greedily, but after we place each song into the top‑K list, we slightly penalize future candidates by how many times we’ve already used their artist and genre:
+```
+adjusted_score = base_score
+                 - 0.15 * times_this_artist_already_selected
+                 - 0.10 * times_this_genre_already_selected
+```
 # ------------ END ------------
 
 Explain your design in plain language.
