@@ -1,23 +1,10 @@
 # 🎵 Music Recommender Simulation
-
-## Project Summary
-
-In this project you will build and explain a small music recommender system.
-
-Your goal is to:
-
-- Represent songs and a user "taste profile" as data
-- Design a scoring rule that turns that data into recommendations
-- Evaluate what your system gets right and wrong
-- Reflect on how this mirrors real world AI recommenders
-
-Replace this paragraph with your own summary of what your version does.
-
+# [ReadMe](ReadMe.md) | [Model Card](model_card.md) |
 ---
 
 ## How The System Works
 
-# ------------ BEGIN ------------
+# ----- NB -----
 
 <img src="MusicRecommenderSimulation-Demo.gif" alt="MusicRecommenderSimulation-Demo">
 
@@ -70,7 +57,22 @@ adjusted_score = base_score
                  - 0.15 * times_this_artist_already_selected
                  - 0.10 * times_this_genre_already_selected
 ```
-# ------------ END ------------
+# ----- NB END ------
+
+## Project Summary
+
+In this project you will build and explain a small music recommender system.
+
+Your goal is to:
+
+- Represent songs and a user "taste profile" as data
+- Design a scoring rule that turns that data into recommendations
+- Evaluate what your system gets right and wrong
+- Reflect on how this mirrors real world AI recommenders
+
+Replace this paragraph with your own summary of what your version does.
+
+---
 
 Explain your design in plain language.
 
